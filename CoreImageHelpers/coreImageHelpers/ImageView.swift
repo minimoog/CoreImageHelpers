@@ -43,6 +43,8 @@ class MetalImageView: MTKView
             fatalError("Device doesn't support Metal")
         }
         
+        isPaused = true
+        enableSetNeedsDisplay = false
         framebufferOnly = false
     }
 
@@ -56,11 +58,11 @@ class MetalImageView: MTKView
     {
         didSet
         {
-            renderImage()
+            draw()
         }
     }
     
-    func renderImage()
+    override func draw(_ rect: CGRect)
     {
         guard let
             image = image,
